@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Unity WebGL Player | MikeTysonGame</title>
+  <style>
+    :root {
+      --vh: 1vh;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #231F20;
+      overflow: hidden;
+      touch-action: none;
+    }
+    #unity-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: calc(var(--vh, 1vh) * 100);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #231F20;
+    }
+    canvas#unity-canvas {
+      width: 100%;
+      height: 100%;
+      background: #231F20;
+      touch-action: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+  </div>
+
+  <script src="Build/FinalFixedProblems-MikeTyson.loader.js"></script>
+  <script>
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "Build/FinalFixedProblems-MikeTyson.data",
+      frameworkUrl: "Build/FinalFixedProblems-MikeTyson.framework.js",
+      codeUrl: "Build/FinalFixedProblems-MikeTyson.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "MikeTysonGame",
+      productVersion: "0.1"
+    });
+  </script>
+
+  <script>
+    // Viewport fix for mobile
+    function updateVh() {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', updateVh);
+    window.addEventListener('orientationchange', updateVh);
+    updateVh(); // Initial call
+  </script>
+</body>
+</html>
